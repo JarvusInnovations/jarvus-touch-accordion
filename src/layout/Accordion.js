@@ -1,3 +1,5 @@
+/* jshint undef: true, unused: true, browser: true, quotmark: single, curly: true */
+/* global Ext */
 Ext.define('Jarvus.touch.layout.Accordion', {
     extend: 'Ext.layout.Default',
     alias: ['layout.accordion'],
@@ -98,7 +100,7 @@ Ext.define('Jarvus.touch.layout.Accordion', {
         return container.up('container{getScrollable()}') || container;
     },
 
-    onHeaderTap: function(ev, t) {
+    onHeaderTap: function(ev) {
         var item = ev.getTarget('.accordion-section', this.container.innerElement, true).item;
 
         if (item.collapsed) {
