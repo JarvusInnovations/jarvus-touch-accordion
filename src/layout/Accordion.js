@@ -6,7 +6,8 @@ Ext.define('Jarvus.touch.layout.Accordion', {
 
     config: {
         expandedItem: null,
-        allowCollapse: true
+        allowCollapse: true,
+        scrollOnExpand: false
     },
 
     constructor: function() {
@@ -67,37 +68,6 @@ Ext.define('Jarvus.touch.layout.Accordion', {
 
     removeInnerItem: function(item) {
         item.accordion.detach();
-    },
-
-    getTotalHeight: function(container) {
-        var innerItems = container.getInnerItems(),
-            len = innerItems.length,
-            i = 0,
-            totalHeight = 0,
-            containerItem;
-
-        if (container === this.container) {
-            for (; i < len; i++) {
-                containerItem = innerItems[i];
-                if (!containerItem.getHidden()) {
-                    totalHeight += containerItem.accordion.getHeight();
-                }
-            }
-        }
-
-        return totalHeight;
-    },
-
-    /**
-     * certain functions depend on working with a container that has a scrollable/scroller;
-     * since it's possible that an accordion might exist as a child of a parent container
-     * that has scrollable (instead of the accordion container being the entire scrollable area),
-     * we can use this function to locate the nearest parent with a scrollable.
-     */
-    findParentContainerWithScrollable: function() {
-        var container = this.container;
-
-        return container.up('container{getScrollable()}') || container;
     },
 
     onHeaderTap: function(ev) {
@@ -191,6 +161,12 @@ Ext.define('Jarvus.touch.layout.Accordion', {
             }
         } else if (scroller) {
             scroller.setDisabled(false);
+
+            if (me.getScrollOnExpand()) {
+                Ext.defer(function() {
+                    scroller.scrollTo(0, me.getHeaderScrollPosition(item), true);
+                }, 10);
+            }
         }
 
         item.accordion.addCls('selected');
@@ -207,6 +183,18 @@ Ext.define('Jarvus.touch.layout.Accordion', {
     },
 
     /**
+     * certain functions depend on working with a container that has a scrollable/scroller;
+     * since it's possible that an accordion might exist as a child of a parent container
+     * that has scrollable (instead of the accordion container being the entire scrollable area),
+     * we can use this function to locate the nearest parent with a scrollable.
+     */
+    findParentContainerWithScrollable: function() {
+        var container = this.container;
+
+        return container.up('container{getScrollable()}') || container;
+    },
+
+    /**
      * Test if given item should be maximized
      */
     shouldItemBeMaximized: function(item) {
@@ -214,5 +202,37 @@ Ext.define('Jarvus.touch.layout.Accordion', {
             container = me.findParentContainerWithScrollable();
 
         return !container.getScrollable().getElement().getHeight() || !!item.config.maximizeHeight;
+    },
+
+    getTotalHeight: function(container) {
+        var innerItems = container.getInnerItems(),
+            len = innerItems.length,
+            i = 0,
+            totalHeight = 0,
+            containerItem;
+
+        if (container === this.container) {
+            for (; i < len; i++) {
+                containerItem = innerItems[i];
+                if (!containerItem.getHidden()) {
+                    totalHeight += containerItem.accordion.getHeight();
+                }
+            }
+        }
+
+        return totalHeight;
+    },
+
+    getHeaderScrollPosition: function(item) {
+        var innerItems = this.container.getInnerItems(),
+            index = Ext.Array.indexOf(innerItems, item) - 1,
+            top = 0;
+
+        while (index >= 0) {
+            top += innerItems[index].accordion.getHeight();
+            index--;
+        }
+
+        return top;
     }
 });
