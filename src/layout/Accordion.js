@@ -164,8 +164,12 @@ Ext.define('Jarvus.touch.layout.Accordion', {
 
             if (me.getScrollOnExpand()) {
                 Ext.defer(function() {
-                    scroller.scrollTo(0, me.getHeaderScrollPosition(item), true);
-                }, 10);
+                    var scrollToY = me.getHeaderScrollPosition(item);
+
+                    if (scroller.getSize().y - scroller.getContainerSize().y > scrollToY) {
+                        scroller.scrollTo(0, scrollToY, true);
+                    }
+                }, 25);
             }
         }
 
