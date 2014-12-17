@@ -54,6 +54,13 @@ Ext.define('Jarvus.touch.layout.Accordion', {
             }
         }, nextSiblingDom);
 
+        accordion.on('touchstart', function() {
+            accordion.addCls('x-item-pressed');
+        });
+        accordion.on('touchend', function() {
+            accordion.removeCls('x-item-pressed');
+        });
+
         if (item.isHidden()) {
             accordion.hide();
         }
