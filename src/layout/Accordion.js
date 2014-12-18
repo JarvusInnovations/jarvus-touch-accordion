@@ -43,7 +43,7 @@ Ext.define('Jarvus.touch.layout.Accordion', {
             itemDom = item.element.dom,
             nextSibling = container.getInnerAt(index + 1),
             nextSiblingDom = nextSibling ? nextSibling.accordion.dom : null,
-            accordion;
+            accordion, accordionHeader;
 
         item.element.addCls('accordion-body');
         accordion = container.innerElement.createChild({
@@ -56,12 +56,14 @@ Ext.define('Jarvus.touch.layout.Accordion', {
             }
         }, nextSiblingDom);
 
-        accordion.on({
+        accordionHeader = accordion.down('.accordion-header');
+
+        accordionHeader.on({
             touchstart: function() {
-                accordion.addCls(pressedCls);
+                accordionHeader.addCls(pressedCls);
             },
             touchend: function() {
-                accordion.removeCls(pressedCls);
+                accordionHeader.removeCls(pressedCls);
             }
         });
 
