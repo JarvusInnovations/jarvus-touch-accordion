@@ -7,7 +7,8 @@ Ext.define('Jarvus.touch.layout.Accordion', {
     config: {
         expandedItem: null,
         allowCollapse: true,
-        scrollOnExpand: false
+        scrollOnExpand: false,
+        pressedCls: 'x-item-pressed'
     },
 
     constructor: function() {
@@ -37,11 +38,12 @@ Ext.define('Jarvus.touch.layout.Accordion', {
 
     insertInnerItem: function(item, index) {
         var me = this,
+            pressedCls = me.getPressedCls(),
             container = me.container,
             itemDom = item.element.dom,
             nextSibling = container.getInnerAt(index + 1),
             nextSiblingDom = nextSibling ? nextSibling.accordion.dom : null,
-            accordion;
+            accordion, accordionHeader;
 
         item.element.addCls('accordion-body');
         accordion = container.innerElement.createChild({
@@ -53,6 +55,17 @@ Ext.define('Jarvus.touch.layout.Accordion', {
                 html: item.config.title
             }
         }, nextSiblingDom);
+
+        accordionHeader = accordion.down('.accordion-header');
+
+        accordionHeader.on({
+            touchstart: function() {
+                accordionHeader.addCls(pressedCls);
+            },
+            touchend: function() {
+                accordionHeader.removeCls(pressedCls);
+            }
+        });
 
         if (item.isHidden()) {
             accordion.hide();
