@@ -162,8 +162,7 @@ Ext.define('Jarvus.touch.layout.Accordion', {
     onItemExpand: function(item) {
         var me = this,
             container = me.findParentContainerWithScrollable(),
-            scrollable = container.getScrollable(),
-            scroller = scrollable ? scrollable.getScroller() : null;
+            scroller = container.getScrollable();
 
         me.setExpandedItem(item);
 
