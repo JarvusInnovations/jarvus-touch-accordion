@@ -1,6 +1,6 @@
 /* jshint undef: true, unused: true, browser: true, quotmark: single, curly: true */
 /* global Ext */
-Ext.define('Jarvus.touch.layout.Accordion', {
+Ext.define('Jarvus.layout.Accordion', {
     extend: 'Ext.layout.Default',
     alias: ['layout.accordion'],
 
