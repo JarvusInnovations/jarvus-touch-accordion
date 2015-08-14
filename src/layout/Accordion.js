@@ -141,7 +141,7 @@ Ext.define('Jarvus.layout.Accordion', {
         if (item.config.expanded) {
             me.setExpandedItem(item);
             item.collapsed = false;
-            item.accordion.addCls('selected');
+            item.accordion.addCls('is-expanded');
         } else {
             item.collapsed = true;
         }
@@ -185,7 +185,7 @@ Ext.define('Jarvus.layout.Accordion', {
             }
         }
 
-        item.accordion.addCls('selected');
+        item.accordion.addCls('is-expanded');
     },
 
     onItemCollapse: function(item) {
@@ -195,7 +195,7 @@ Ext.define('Jarvus.layout.Accordion', {
             me.setExpandedItem(null);
         }
 
-        item.accordion.removeCls('selected');
+        item.accordion.removeCls('is-expanded');
     },
 
     /**
