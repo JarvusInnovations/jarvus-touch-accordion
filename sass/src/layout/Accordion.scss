@@ -1,6 +1,7 @@
 @keyframes fade-in {
-    from { opacity: 0; }
-      to { opacity: 1; }
+      0% { opacity: 0; transform: scaleY(0.9); }
+     50% { transform: none; }
+    100% { opacity: 1; }
 }
 
 .accordion-section {
@@ -29,7 +30,7 @@
 	
 	.is-expanded & {		
 		&::before {
-			@include rotate(-180deg);
+			@include rotateX(-180deg);
 		}
 	}
 }
@@ -37,6 +38,7 @@
 .accordion-body {
     animation: fade-in .4s;
 	display: none;
+	transform-origin: top;
 	
 	.is-expanded & {
     	display: block;
