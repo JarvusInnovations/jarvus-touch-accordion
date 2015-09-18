@@ -17,20 +17,19 @@
 	padding: .6em;
 
 	&::before {
-		content: $fa-var-chevron-down;
+		content: $fa-var-chevron-right;
 		display: inline-block;
 		font-family: FontAwesome;
-		font-size: .75em;
-		margin-right: .75em;
+		font-size: .85em;
+		margin-right: .5em;
 		@include transform-origin(50%, 57%);
 		@include transition(transform .2s);
-		vertical-align: .125em;
 		width: 1em;
 	}
 	
 	.is-expanded & {		
 		&::before {
-			@include rotateX(-180deg);
+			@include transform(rotate(90deg) translateX(10%));
 		}
 	}
 }
