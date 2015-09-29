@@ -75,6 +75,7 @@ Ext.define('Jarvus.layout.Accordion', {
 
         accordion.item = item;
         item.accordion = accordion;
+        accordion.header = accordionHeader;
 
         return me;
     },
@@ -136,6 +137,11 @@ Ext.define('Jarvus.layout.Accordion', {
                 item.collapsed = true;
                 item.fireEvent('collapse', item, me);
             }
+        };
+
+        item.setTitle = function(title) {
+            item.title = item.config.title = title;
+            item.accordion.header.setHtml(title);
         };
 
         if (item.config.expanded) {
