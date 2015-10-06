@@ -23,7 +23,7 @@
 		font-size: .85em;
 		margin-right: .5em;
 		@include transform-origin(50%, 57%);
-		@include transition(transform .2s);
+		@include transition(transform .1s);
 		width: 1em;
 	}
 	
