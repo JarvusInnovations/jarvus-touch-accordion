@@ -26,11 +26,16 @@
 		@include transition(transform .1s);
 		width: 1em;
 	}
-	
-	.is-expanded & {		
+
+	.is-expanded & {
 		&::before {
 			@include transform(rotate(90deg) translateX(10%));
 		}
+	}
+
+	small {
+		color: #777;
+		margin-left: .5em;
 	}
 }
 
@@ -38,7 +43,7 @@
     animation: fade-in .4s;
 	display: none;
 	transform-origin: top;
-	
+
 	.is-expanded & {
     	display: block;
     }
