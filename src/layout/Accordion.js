@@ -1,5 +1,3 @@
-/* jshint undef: true, unused: true, browser: true, quotmark: single, curly: true */
-/* global Ext */
 Ext.define('Jarvus.layout.Accordion', {
     extend: 'Ext.layout.Default',
     alias: ['layout.accordion'],
@@ -15,6 +13,7 @@ Ext.define('Jarvus.layout.Accordion', {
 
     constructor: function() {
         var me = this;
+
         me.callParent(arguments);
     },
 
@@ -40,6 +39,7 @@ Ext.define('Jarvus.layout.Accordion', {
             accordion, accordionHeader;
 
         item.element.addCls('accordion-body');
+
         accordion = container.innerElement.createChild({
             tag: 'section',
             cls: 'accordion-section',
