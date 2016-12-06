@@ -65,6 +65,14 @@ Ext.define('Jarvus.layout.Accordion', {
             accordion.hide();
         }
 
+        if (item.config.expanded) {
+            me.setExpandedItem(item);
+            item.collapsed = false;
+            accordion.addCls('is-expanded');
+        } else {
+            item.collapsed = true;
+        }
+
         accordion.dom.appendChild(itemDom);
 
         accordion.item = item;
@@ -145,14 +153,6 @@ Ext.define('Jarvus.layout.Accordion', {
             expand: 'onItemExpand',
             collapse: 'onItemCollapse'
         });
-
-        if (item.config.expanded) {
-            me.setExpandedItem(item);
-            item.collapsed = false;
-            item.accordion.addCls('is-expanded');
-        } else {
-            item.collapsed = true;
-        }
     },
 
     onItemRemove: function(item) {
