@@ -19,21 +19,13 @@ Ext.define('Jarvus.layout.Accordion', {
     },
 
     setContainer: function(container) {
-        var me = this,
-            options = {
-                delegate: '> component'
-            };
+        var me = this;
 
         me.callParent(arguments);
 
         container.innerElement.on('tap', 'onHeaderTap', me, {
             delegate: '.accordion-header'
         });
-
-        container.on('hide', 'onItemHide', me, options)
-            .on('show', 'onItemShow', me, options)
-            .on('expand', 'onItemExpand', me, options)
-            .on('collapse', 'onItemCollapse', me, options);
 
         container.addCls('jarvus-layout-accordion');
     },
@@ -146,6 +138,14 @@ Ext.define('Jarvus.layout.Accordion', {
             item.accordion.header.setHtml(title);
         };
 
+        item.on({
+            scope: me,
+            hide: 'onItemHide',
+            show: 'onItemShow',
+            expand: 'onItemExpand',
+            collapse: 'onItemCollapse'
+        });
+
         if (item.config.expanded) {
             me.setExpandedItem(item);
             item.collapsed = false;
@@ -153,6 +153,20 @@ Ext.define('Jarvus.layout.Accordion', {
         } else {
             item.collapsed = true;
         }
+    },
+
+    onItemRemove: function(item) {
+        var me = this;
+
+        me.callParent(arguments);
+
+        item.un({
+            scope: me,
+            hide: 'onItemHide',
+            show: 'onItemShow',
+            expand: 'onItemExpand',
+            collapse: 'onItemCollapse'
+        });
     },
 
     onItemHide: function(item) {
