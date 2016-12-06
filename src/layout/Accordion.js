@@ -6,6 +6,8 @@ Ext.define('Jarvus.layout.Accordion', {
 
     config: {
         expandedItem: null,
+
+        allowMultipleExpandedItems: false,
         allowCollapse: true,
         scrollOnExpand: false,
         pressedCls: 'x-item-pressed'
@@ -111,7 +113,7 @@ Ext.define('Jarvus.layout.Accordion', {
     },
 
     updateExpandedItem: function(item, oldItem) {
-        if (oldItem && !this.container.config.allowMultipleExpandedItems) {
+        if (oldItem && !this.getAllowMultipleExpandedItems()) {
             oldItem.collapse();
         }
 
